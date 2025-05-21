@@ -1,48 +1,76 @@
-import { Box, Container, Grid, GridItem, Stat } from "@chakra-ui/react";
+import GardenGrid from "@/components/dashboard/garden/GardenGrid";
+import NavigationBar from "@/components/dashboard/NavigationBar";
+import {
+  Button,
+  Container,
+  Grid,
+  Heading,
+  Separator,
+  Stack,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { RiHome2Fill, RiLeafFill } from "react-icons/ri";
 
 export default function Dashboard() {
+  const [currentView, setCurrentView] = useState("garden");
+
   return (
-    <Container width='full'>
-      <Grid gridTemplateColumns='2fr 6fr'>
-        <Box
-          height='calc(100vh - 32px)'
-          style={{
-            backgroundColor: "#c4c4c4",
-            borderRadius: "15px",
-            padding: "16px",
-          }}
+    <Container
+      height='full'
+      color='black'
+    >
+      <Grid
+        templateColumns='0.75fr 4fr'
+        height='full'
+        gap='4'
+      >
+        <Stack
+          rounded='2xl'
+          padding='8'
+          bgGradient='to-r'
+          gradientFrom='whiteAlpha.800/80'
+          gradientTo='whiteAlpha.600'
         >
-          Hello
-        </Box>
-        <Grid
-          height='calc(100vh - 32px)'
-          gridTemplateColumns='repeat(4, 1fr)'
-        >
-          <GridItem>
-            <Stat.Root>
-              <Stat.Label>Temp</Stat.Label>
-              <Stat.ValueText>30.0˚</Stat.ValueText>
-            </Stat.Root>
-          </GridItem>
-          <GridItem>
-            <Stat.Root>
-              <Stat.Label>Temp</Stat.Label>
-              <Stat.ValueText>30.0˚</Stat.ValueText>
-            </Stat.Root>
-          </GridItem>
-          <GridItem>
-            <Stat.Root>
-              <Stat.Label>Temp</Stat.Label>
-              <Stat.ValueText>30.0˚</Stat.ValueText>
-            </Stat.Root>
-          </GridItem>
-          <GridItem>
-            <Stat.Root>
-              <Stat.Label>Temp</Stat.Label>
-              <Stat.ValueText>30.0˚</Stat.ValueText>
-            </Stat.Root>
-          </GridItem>
-        </Grid>
+          <Heading
+            size='lg'
+            color='aqua'
+            opacity='0.8'
+          >
+            Vision Dashboard
+          </Heading>
+          <Separator
+            marginY='4'
+            borderColor='blackAlpha.600/40'
+          />
+          <Stack gap='3'>
+            <Button
+              backgroundColor='aqua'
+              color='black'
+              opacity='0.8'
+              onClick={() => setCurrentView("home")}
+            >
+              <RiHome2Fill color='red' />
+              Home Activities
+            </Button>
+            <Button
+              backgroundColor='aqua'
+              color='black'
+              opacity='0.8'
+              onClick={() => setCurrentView("garden")}
+            >
+              <RiLeafFill color='green' />
+              Garden
+            </Button>
+          </Stack>
+        </Stack>
+        <Stack>
+          <NavigationBar />
+          {currentView === "garden" && <GardenGrid />}
+          <Grid></Grid>
+          <Grid></Grid>
+          <Grid></Grid>
+          <Grid></Grid>
+        </Stack>
       </Grid>
     </Container>
   );
